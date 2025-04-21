@@ -21,8 +21,6 @@ Sistema completo para gerenciamento de pedidos em restaurantes, desenvolvido em 
   
 - **Frontend**:
   - Bootstrap 5
-  - Razor Pages
-  - jQuery (para AJAX)
 
 ## 🚀 Como Executar
 
