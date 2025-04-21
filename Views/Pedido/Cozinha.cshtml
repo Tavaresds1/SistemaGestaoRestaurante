@@ -1,0 +1,86 @@
+@model List<SistemaGestao.Models.Pedido>
+
+    @{
+    ViewData["Title"] = "Pedidos para Cozinha";
+    }
+
+    <div class="container mt-4">
+        <h2 class="mb-4">Pedidos para Cozinha</h2>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Mesa</th>
+                        <th>Cliente</th>
+                        <th>Itens</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pedido in Model)
+                {
+                    <tr>
+                        <td>@pedido.Mesa</td>
+                        <td>@pedido.NomeSolicitante</td>
+                        <td>
+                            <ul class="list-unstyled">
+                                @foreach (var item in pedido.Itens.Where(i => i.Produto.Tipo == TipoProduto.Prato))
+                                {
+                                <li>
+                                    @item.Quantidade x @item.Produto.Nome
+                                    @if (!string.IsNullOrEmpty(item.Observacao))
+                                        {
+                                    <span class="text-muted">(@item.Observacao)</span>
+                                        }
+                                </li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <span class="badge @(pedido.Status == StatusPedido.EmPreparo ? "bg-warning" : "bg-success")">
+                                @pedido.Status
+                            </span>
+                        </td>
+                        <td>
+                            @if (pedido.Status == StatusPedido.EmPreparo)
+                            {
+                            <form asp-action="MarcarPronto" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@pedido.Id" />
+                                <input type="hidden" name="origem" value="cozinha" />
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    <i class="bi bi-check-circle"></i> Pronto
+                                </button>
+                            </form>
+                            }
+                            else
+                            {
+                            <span class="text-success">Concluído</span>
+                            }
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+        @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Nenhum pedido em espera.
+        </div>
+    }
+    </div>
+
+    @section Styles {
+        <style>
+            .badge.bg-warning {
+                color: #212529;
+            }
+
+            .table-hover tbody tr:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+        </style>
+    }

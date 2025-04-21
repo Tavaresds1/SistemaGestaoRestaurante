@@ -1,0 +1,34 @@
+@model List<SistemaGestao.Models.Pedido>
+
+    @{
+    ViewData["Title"] = "Lista de Pedidos";
+    }
+
+    <h2>Pedidos</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Status</th>
+                <th>Itens</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pedido in Model)
+    {
+            <tr>
+                <td>@pedido.Id</td>
+                <td>@pedido.Status</td>
+                <td>
+                    <ul>
+                        @foreach (var item in pedido.Itens)
+                    {
+                        <li>@item.Produto.Nome - Quantidade: @item.Quantidade</li>
+                    }
+                    </ul>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>

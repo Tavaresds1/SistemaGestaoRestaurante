@@ -1,0 +1,43 @@
+@model SistemaGestao.Models.Pedido
+
+<h2>Criar Novo Pedido</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Mesa" class="control-label"></label>
+        <input asp-for="Mesa" class="form-control" />
+        <span asp-validation-for="Mesa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NomeSolicitante" class="control-label"></label>
+        <input asp-for="NomeSolicitante" class="form-control" />
+        <span asp-validation-for="NomeSolicitante" class="text-danger"></span>
+    </div>
+
+    <h4>Produtos</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var produto in ViewBag.Produtos)
+            {
+            <tr>
+                <td>
+                    <input type="checkbox" name="produtoIds" value="@produto.Id" />
+                    @produto.Nome - R$ @produto.Preco
+                </td>
+                <td>
+                    <input type="number" name="quantidades" value="1" min="1" class="form-control" />
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Criar Pedido</button>
+</form>

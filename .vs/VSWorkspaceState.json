@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "\\Controllers",
+    "\\Data",
+    "\\obj",
+    "\\Views",
+    "\\Views\\Account",
+    "\\Views\\Pedido",
+    "\\Views\\Shared",
+    "\\wwwroot",
+    "\\wwwroot\\css"
+  ],
+  "PreviewInSolutionExplorer": false
+}
